@@ -21,7 +21,7 @@ const Home = () => {
 
     try {
       setLoading(true);
-      const response = await getPrediction("file", files[0]);
+      const response = await getPrediction(files[0]);
 
       if (response) {
         // const data = await response.json();
