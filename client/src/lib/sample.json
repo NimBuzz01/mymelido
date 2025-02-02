@@ -1,0 +1,28 @@
+{
+  "most_potential_copyrighted_lyrics": {
+    "song": "Shape of You",
+    "overall_similarity": 92,
+    "lyrics_similarity": 89,
+    "copyright_status": "Potential Lyrical Infringement"
+  },
+  "most_potential_copyrighted_audio": {
+    "song": "Shape of You",
+    "overall_similarity": 92,
+    "audio_similarity": 89,
+    "copyright_status": "Potential Audio Infringement"
+  },
+  "top_5_similar_songs_based_on_lyrics": [
+    { "song": "Shape of You", "similarity": 92 },
+    { "song": "Perfect", "similarity": 85 },
+    { "song": "Thinking Out Loud", "similarity": 80 },
+    { "song": "Castle on the Hill", "similarity": 78 },
+    { "song": "Galway Girl", "similarity": 75 }
+  ],
+  "top_5_similar_songs_based_on_audio": [
+    { "song": "Shape of You", "similarity": 92 },
+    { "song": "Perfect", "similarity": 85 },
+    { "song": "Thinking Out Loud", "similarity": 80 },
+    { "song": "Castle on the Hill", "similarity": 78 },
+    { "song": "Galway Girl", "similarity": 75 }
+  ]
+}
