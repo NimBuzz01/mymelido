@@ -1,175 +1,82 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import {
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "./ui/chart";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
-import { type ChartConfig } from "@/components/ui/chart";
-import { SimilarityAnalysis } from "@/lib/result";
+"use client";
 
-const chartConfig = {
-  similarity: {
-    label: "Similarity",
-    color: "#8884d8",
-  },
-} satisfies ChartConfig;
+import React, { useMemo } from "react";
+import { AlertCircle, Music } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import type { SimilarityAnalysis } from "@/lib/result";
+import { formatTrackName } from "@/lib/utils";
+import { MatchCard } from "./MatchCard";
+import { MatchesTable } from "./MatchesTable";
+import { TrackInfo } from "./TrackInfo";
 
-const ResultsSection = ({ results }: { results: SimilarityAnalysis }) => {
+interface ResultsDashboardProps {
+  results: SimilarityAnalysis;
+}
+
+const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
+  // Memoize the top match to prevent unnecessary recalculations
+  const topMatch = useMemo(() => {
+    return results.top_matches?.[0] || null;
+  }, [results.top_matches]);
+
+  // Handle the case where there are no matches
+  if (!results.top_matches?.length) {
+    return (
+      <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>No matches found</AlertTitle>
+        <AlertDescription>
+          No similar tracks were found for "
+          {formatTrackName(results.query_track)}". Try analyzing with different
+          parameters.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
-    <>
-      <h2 className="text-xl font-semibold mb-4">
-        Similarity Analysis Results
-      </h2>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 mb-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Most Potential Copyrighted Lyrics</CardTitle>
-            <CardDescription>
-              Analysis results for lyrical similarity
-            </CardDescription>
-            <CardContent className="p-0">
-              <p className="text-lg font-semibold">
-                {results.most_potential_copyrighted_lyrics.song}
-              </p>
-              <p>
-                Overall Similarity:{" "}
-                {results.most_potential_copyrighted_lyrics.overall_similarity}%
-              </p>
-              <p>
-                Lyrics Similarity:{" "}
-                {results.most_potential_copyrighted_lyrics.lyrics_similarity}%
-              </p>
-              <p>
-                Copyright Status:
-                <strong>
-                  {results.most_potential_copyrighted_lyrics.copyright_status}
-                </strong>
-              </p>
-            </CardContent>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Most Potential Copyrighted Audio</CardTitle>
-            <CardDescription>
-              Analysis results for audio similarity
-            </CardDescription>
-            <CardContent className="p-0">
-              <p className="text-lg font-semibold">
-                {results.most_potential_copyrighted_audio.song}
-              </p>
-              <p>
-                Overall Similarity:{" "}
-                {results.most_potential_copyrighted_audio.overall_similarity}%
-              </p>
-              <p>
-                Audio Similarity:{" "}
-                {results.most_potential_copyrighted_audio.audio_similarity}%
-              </p>
-              <p>
-                Copyright Status:
-                <strong>
-                  {results.most_potential_copyrighted_audio.copyright_status}
-                </strong>
-              </p>
-            </CardContent>
-          </CardHeader>
-        </Card>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      {/* Header Section */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Music className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold tracking-tight">Track Analysis</h1>
+        </div>
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <span className="font-medium">
+            {formatTrackName(results.query_track)}
+          </span>
+          <span>•</span>
+          <span className="capitalize">{results.genre}</span>
+        </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Top 5 Similar Songs Based on Lyrics</CardTitle>
-            <CardContent className="p-0">
-              <ChartContainer
-                className="w-full min-h-[300px]"
-                config={chartConfig}
-              >
-                <BarChart
-                  accessibilityLayer
-                  data={results.top_5_similar_songs_based_on_lyrics}
-                  layout="vertical"
-                  margin={{
-                    left: 0,
-                  }}
-                >
-                  <YAxis
-                    dataKey="song"
-                    type="category"
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                  />
-                  <XAxis dataKey="similarity" type="number" />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent hideLabel />}
-                  />
-                  <Bar
-                    dataKey="similarity"
-                    layout="vertical"
-                    radius={5}
-                    fill="var(--color-similarity)"
-                  />
-                  <ChartLegend content={<ChartLegendContent />} />
-                </BarChart>
-              </ChartContainer>
-            </CardContent>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Top 5 Similar Songs Based on Audio</CardTitle>
-            <CardContent className="p-0">
-              <ChartContainer
-                className="w-full min-h-[300px]"
-                config={chartConfig}
-              >
-                <BarChart
-                  accessibilityLayer
-                  data={results.top_5_similar_songs_based_on_audio}
-                  layout="vertical"
-                  margin={{
-                    left: 0,
-                  }}
-                >
-                  <YAxis
-                    dataKey="song"
-                    type="category"
-                    tickLine={false}
-                    tickMargin={10}
-                    axisLine={false}
-                  />
-                  <XAxis dataKey="similarity" type="number" />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent hideLabel />}
-                  />
-                  <Bar
-                    dataKey="similarity"
-                    layout="vertical"
-                    radius={5}
-                    fill="var(--color-similarity)"
-                  />
-                  <ChartLegend content={<ChartLegendContent />} />
-                </BarChart>
-              </ChartContainer>
-            </CardContent>
-          </CardHeader>
-        </Card>
-      </div>
-    </>
+
+      {/* Top Match Highlight */}
+      {topMatch && (
+        <section aria-labelledby="top-match-heading">
+          <h2 id="top-match-heading" className="mb-4 text-xl font-semibold">
+            Best Match
+          </h2>
+          <MatchCard match={topMatch} isTopMatch={true} />
+        </section>
+      )}
+
+      {/* Similarity Breakdown */}
+      <section aria-labelledby="breakdown-heading">
+        <h2 id="breakdown-heading" className="mb-4 text-xl font-semibold">
+          Analysis Details
+        </h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          <MatchesTable matches={results.top_matches} />
+          <TrackInfo
+            trackId={results.query_track}
+            genre={results.genre}
+            lyrics={results.lyrics}
+          />
+        </div>
+      </section>
+    </div>
   );
 };
 
-export default ResultsSection;
+export default React.memo(ResultsDashboard);

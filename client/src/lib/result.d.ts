@@ -1,19 +1,13 @@
-interface SimilarityResult {
-  song: string;
-  overall_similarity: number;
-  lyrics_similarity?: number;
-  audio_similarity?: number;
-  copyright_status: string;
-}
-
-interface SimilarSong {
-  song: string;
+export interface MatchResult {
+  track_id: string;
   similarity: number;
+  match: "YES" | "NO";
+  lyrics: string;
 }
 
 export interface SimilarityAnalysis {
-  most_potential_copyrighted_lyrics: SimilarityResult;
-  most_potential_copyrighted_audio: SimilarityResult;
-  top_5_similar_songs_based_on_lyrics: SimilarSong[];
-  top_5_similar_songs_based_on_audio: SimilarSong[];
+  query_track: string;
+  genre: string;
+  top_matches: MatchResult[];
+  lyrics?: string;
 }

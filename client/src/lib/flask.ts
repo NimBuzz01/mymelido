@@ -1,5 +1,3 @@
-import sampleData from "./sample.json";
-
 export const getPrediction = async (file: File): Promise<any> => {
   const formData = new FormData();
   formData.append("audio", file);
@@ -12,9 +10,4 @@ export const getPrediction = async (file: File): Promise<any> => {
     .then((data) => {
       return data;
     });
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve(sampleData);
-  //   }, 3000);
-  // });
 };

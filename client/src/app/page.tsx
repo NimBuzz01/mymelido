@@ -24,7 +24,7 @@ const Home = () => {
       const response = await getPrediction(files[0]);
 
       if (response) {
-        // const data = await response.json();
+        // setResults(enhanceContrast(response));
         setResults(response);
       } else {
         toast.error("Error processing file");

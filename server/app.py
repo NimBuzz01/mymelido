@@ -1,7 +1,6 @@
 import time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from keras.models import load_model
 import keras
 
 keras.config.enable_unsafe_deserialization()
@@ -19,39 +18,39 @@ def predict():
 
     # Return the dummy results with delay
     return jsonify({
-        "Query Track": "out_Sedative_God_Paradise_Lost_1_2",
-        "Genre": "metal",
-        "Lyrics": "To feel constrained is always there for me...",
-        "Top Matches": [
+        "query_track": "out_Sedative_God_Paradise_Lost_1_2",
+        "genre": "metal",
+        "lyrics": "To feel constrained is always there for me...",
+        "top_matches": [
             {
-                "Track ID": "out_Sedative_God_Paradise_Lost_1_2",
-                "Similarity": 1.0000,
-                "Match": "YES",
-                "Lyrics": "To feel constrained is always there for me"
+                "track_id": "out_Sedative_God_Paradise_Lost_1_2",
+                "similarity": 1.0000,
+                "match": "YES",
+                "lyrics": "To feel constrained is always there for me"
             },
             {
-                "Track ID": "out_Where_the_Light_has_Failed_Skeletonwitch_2_2",
-                "Similarity": 0.9851,
-                "Match": "YES",
-                "Lyrics": "Where the light has failed, darkness now prevails"
+                "track_id": "out_Where_the_Light_has_Failed_Skeletonwitch_2_2",
+                "similarity": 0.6851,
+                "match": "NO",
+                "lyrics": "Where the light has failed, darkness now prevails"
             },
             {
-                "Track ID": "out_Space_Beer_Tankard_2_2",
-                "Similarity": 0.9778,
-                "Match": "YES",
-                "Lyrics": "A drink of healing cures your ills. A new idea - great innovation"
+                "track_id": "out_Space_Beer_Tankard_2_2",
+                "similarity": 0.4778,
+                "match": "NO",
+                "lyrics": "A drink of healing cures your ills. A new idea - great innovation"
             },
             {
-                "Track ID": "out_Let_It_Burn_Tygers_Of_Pan_Tang_0_2",
-                "Similarity": 0.9774,
-                "Match": "YES",
-                "Lyrics": ""
+                "track_id": "out_Let_It_Burn_Tygers_Of_Pan_Tang_0_2",
+                "similarity": 0.5774,
+                "match": "NO",
+                "lyrics": ""
             },
             {
-                "Track ID": "out_We_Gave_It_Hell_36_Crazyfists_2_2",
-                "Similarity": 0.9584,
-                "Match": "YES",
-                "Lyrics": "Ones of reminder and things that just won't heal and in time we will"
+                "track_id": "out_We_Gave_It_Hell_36_Crazyfists_2_2",
+                "similarity": 0.8584,
+                "match": "YES",
+                "lyrics": "Ones of reminder and things that just won't heal and in time we will"
             }
         ]
     })
