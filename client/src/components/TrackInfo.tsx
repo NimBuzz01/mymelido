@@ -1,15 +1,13 @@
 import { Music2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatTrackName } from "@/lib/utils";
 
 interface TrackInfoProps {
   trackId: string;
-  genre: string;
-  lyrics?: string;
+  lyrics: string;
 }
 
-export function TrackInfo({ trackId, genre, lyrics }: TrackInfoProps) {
+export function TrackInfo({ trackId, lyrics }: TrackInfoProps) {
   return (
     <Card className="h-full transition-all hover:shadow-sm">
       <CardHeader className="pb-2">
@@ -21,9 +19,6 @@ export function TrackInfo({ trackId, genre, lyrics }: TrackInfoProps) {
       <CardContent className="space-y-4">
         <div>
           <h3 className="text-lg font-medium">{formatTrackName(trackId)}</h3>
-          <Badge variant="outline" className="mt-2 capitalize">
-            {genre}
-          </Badge>
         </div>
 
         {lyrics && (

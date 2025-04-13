@@ -47,7 +47,7 @@ export function MatchesTable({ matches }: MatchesTableProps) {
                     </span>
                   </TableCell>
                   <TableCell className="text-right">
-                    {match.match === "YES" ? (
+                    {match.is_match ? (
                       <Badge variant="destructive" className="gap-1">
                         <Check className="h-3 w-3" /> Yes
                       </Badge>

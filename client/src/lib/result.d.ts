@@ -1,13 +1,11 @@
 export interface MatchResult {
   track_id: string;
   similarity: number;
-  match: "YES" | "NO";
-  lyrics: string;
+  is_match: boolean;
+  lyrics_snippet: string;
 }
 
 export interface SimilarityAnalysis {
-  query_track: string;
-  genre: string;
-  top_matches: MatchResult[];
-  lyrics?: string;
+  status: string;
+  results: MatchResult[];
 }

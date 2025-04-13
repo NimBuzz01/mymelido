@@ -1,37 +1,17 @@
 {
-  "Query Track": "out_Sedative_God_Paradise_Lost_1_2",
-  "Genre": "metal",
-  "Lyrics": "To feel constrained is always there for me...",
-  "Top Matches": [
+  "status": "success",
+  "results": [
     {
-      "Track ID": "out_Sedative_God_Paradise_Lost_1_2",
-      "Similarity": 1.0,
-      "Match": "YES",
-      "Lyrics": "To feel constrained is always there for me"
+      "track_id": "out_No_One_Else_Comes_Close_Backstreet_Boys_0_2",
+      "similarity": 0.9936,
+      "is_match": true,
+      "lyrics_snippet": "The two of us alone together. Something's just not right"
     },
     {
-      "Track ID": "out_Where_the_Light_has_Failed_Skeletonwitch_2_2",
-      "Similarity": 0.9851,
-      "Match": "YES",
-      "Lyrics": "Where the light has failed, darkness now prevails"
-    },
-    {
-      "Track ID": "out_Space_Beer_Tankard_2_2",
-      "Similarity": 0.9778,
-      "Match": "YES",
-      "Lyrics": "A drink of healing cures your ills. A new idea - great innovation"
-    },
-    {
-      "Track ID": "out_Let_It_Burn_Tygers_Of_Pan_Tang_0_2",
-      "Similarity": 0.9774,
-      "Match": "YES",
-      "Lyrics": ""
-    },
-    {
-      "Track ID": "out_We_Gave_It_Hell_36_Crazyfists_2_2",
-      "Similarity": 0.9584,
-      "Match": "YES",
-      "Lyrics": "Ones of reminder and things that just won't heal and in time we will"
+      "track_id": "out_No_One_Else_Comes_Close_Backstreet_Boys_2_2",
+      "similarity": 0.9839,
+      "is_match": true,
+      "lyrics_snippet": "So much. No one else comes close And when I wake up..."
     }
   ]
 }

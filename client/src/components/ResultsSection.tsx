@@ -14,21 +14,19 @@ interface ResultsDashboardProps {
 }
 
 const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
-  // Memoize the top match to prevent unnecessary recalculations
   const topMatch = useMemo(() => {
-    return results.top_matches?.[0] || null;
-  }, [results.top_matches]);
+    return results.results?.[0] || null;
+  }, [results.results]);
 
-  // Handle the case where there are no matches
-  if (!results.top_matches?.length) {
+  if (!results.results?.length) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>No matches found</AlertTitle>
         <AlertDescription>
           No similar tracks were found for "
-          {formatTrackName(results.query_track)}". Try analyzing with different
-          parameters.
+          {formatTrackName("out_No_One_Else_Comes_Close_Backstreet_Boys_0_2")}".
+          Try analyzing with different parameters.
         </AlertDescription>
       </Alert>
     );
@@ -44,10 +42,8 @@ const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
         </div>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <span className="font-medium">
-            {formatTrackName(results.query_track)}
+            {formatTrackName("out_No_One_Else_Comes_Close_Backstreet_Boys_0_2")}
           </span>
-          <span>•</span>
-          <span className="capitalize">{results.genre}</span>
         </div>
       </div>
 
@@ -67,11 +63,10 @@ const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
           Analysis Details
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <MatchesTable matches={results.top_matches} />
+          <MatchesTable matches={results.results} />
           <TrackInfo
-            trackId={results.query_track}
-            genre={results.genre}
-            lyrics={results.lyrics}
+            trackId={"out_No_One_Else_Comes_Close_Backstreet_Boys_0_2"}
+            lyrics={"The two of us alone together. Something's just not right"}
           />
         </div>
       </section>
@@ -79,4 +74,4 @@ const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
   );
 };
 
-export default React.memo(ResultsDashboard);
+export default ResultsDashboard;

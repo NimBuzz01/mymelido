@@ -32,7 +32,7 @@ export function MatchCard({ match, isTopMatch = false }: MatchCardProps) {
                 {formatTrackName(match.track_id)}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {match.match === "YES" ? "Confirmed match" : "Potential match"}
+                {match.is_match ? "Confirmed match" : "Potential match"}
               </p>
             </div>
             <Badge
@@ -64,11 +64,11 @@ export function MatchCard({ match, isTopMatch = false }: MatchCardProps) {
             />
           </div>
 
-          {match.lyrics && (
+          {match.lyrics_snippet && (
             <div className="rounded-lg border bg-card/50 p-4">
               <h4 className="mb-2 text-sm font-medium">Matching Lyrics</h4>
               <p className="text-sm italic text-muted-foreground">
-                "{match.lyrics}"
+                "{match.lyrics_snippet}"
               </p>
             </div>
           )}

@@ -36,33 +36,33 @@ export function enhanceContrast(
 ): SimilarityAnalysis {
   const enhanced = results;
 
-  if (enhanced.top_matches.length === 0) return enhanced;
+  if (enhanced.results.length === 0) return enhanced;
 
-  enhanced.top_matches.sort((a, b) => b.similarity - a.similarity);
+  enhanced.results.sort((a, b) => b.similarity - a.similarity);
 
-  const topScore = enhanced.top_matches[0].similarity;
+  const topScore = enhanced.results[0].similarity;
 
-  for (let i = 1; i < enhanced.top_matches.length; i++) {
-    const reductionFactor = 0.7 + 0.5 * (i / enhanced.top_matches.length);
+  for (let i = 1; i < enhanced.results.length; i++) {
+    const reductionFactor = 0.7 + 0.5 * (i / enhanced.results.length);
     const maxReduction = topScore * 0.8;
 
-    enhanced.top_matches[i].similarity = Math.max(
-      enhanced.top_matches[i].similarity * reductionFactor,
+    enhanced.results[i].similarity = Math.max(
+      enhanced.results[i].similarity * reductionFactor,
       topScore - maxReduction - Math.random() * 0.1
     );
 
     if (i > 0) {
-      enhanced.top_matches[i].similarity = Math.min(
-        enhanced.top_matches[i].similarity,
-        enhanced.top_matches[i - 1].similarity - 0.05
+      enhanced.results[i].similarity = Math.min(
+        enhanced.results[i].similarity,
+        enhanced.results[i - 1].similarity - 0.05
       );
     }
 
-    enhanced.top_matches[i].match =
-      enhanced.top_matches[i].similarity > topScore * 0.7 ? "YES" : "NO";
+    enhanced.results[i].is_match =
+      enhanced.results[i].similarity > topScore * 0.7 ? true : false;
   }
 
-  enhanced.top_matches.forEach((match) => {
+  enhanced.results.forEach((match) => {
     match.similarity = Math.max(0, match.similarity);
   });
 
