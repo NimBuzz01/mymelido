@@ -4,7 +4,6 @@ import keras
 from transformers import TFBertModel
 import warnings
 from tensorflow.python.ops.numpy_ops import np_config
-from tensorflow.keras.mixed_precision import Policy
 np_config.enable_numpy_behavior()
 warnings.filterwarnings('ignore')
 from config import Config
@@ -41,7 +40,6 @@ class StackEmbeddingsLayer(layers.Layer):
     
 @keras.saving.register_keras_serializable(package="CustomLayers")
 class BertEmbeddingLayer(layers.Layer):
-    """Custom layer to properly integrate BERT with Keras"""
     def __init__(self, model_name='bert-base-uncased', **kwargs):
         super().__init__(**kwargs)
         self.model_name = model_name
@@ -59,8 +57,17 @@ class BertEmbeddingLayer(layers.Layer):
 
     def get_config(self):
         config = super().get_config()
-        config.update({'model_name': self.model_name})
+        config.update({
+            'model_name': self.model_name,
+            'dtype': self.dtype.name 
+        })
         return config
+
+    @classmethod
+    def from_config(cls, config):
+        if 'dtype' in config and isinstance(config['dtype'], dict):
+            config['dtype'] = config['dtype'].get('config', {}).get('name', 'float32')
+        return cls(**config)
     
 @keras.saving.register_keras_serializable(package="CustomLayers")
 class TripletAccuracyMetric(tf.keras.metrics.Metric):

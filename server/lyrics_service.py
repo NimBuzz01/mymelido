@@ -45,35 +45,35 @@ class LyricsService:
         :return: Extracted lyrics text
         """
         try:
-            # if not use_chunks:
-            #     # Simple single-file transcription
-            #     return self._transcribe_audio_chunk(audio_path)
+            if not use_chunks:
+                # Simple single-file transcription
+                return self._transcribe_audio_chunk(audio_path)
             
-            # # Load audio file
-            # audio = AudioSegment.from_file(audio_path)
+            # Load audio file
+            audio = AudioSegment.from_file(audio_path)
             
-            # # Split audio on silence
-            # chunks = split_on_silence(
-            #     audio,
-            #     min_silence_len=self.MIN_SILENCE_LEN,  # 500ms
-            #     silence_thresh=audio.dBFS - self.SILENCE_THRESH,  # -14dB
-            #     keep_silence=self.KEEP_SILENCE  # 500ms
-            # )
+            # Split audio on silence
+            chunks = split_on_silence(
+                audio,
+                min_silence_len=self.MIN_SILENCE_LEN,  # 500ms
+                silence_thresh=audio.dBFS - self.SILENCE_THRESH,  # -14dB
+                keep_silence=self.KEEP_SILENCE  # 500ms
+            )
             
-            # lyrics = []
-            # for i, chunk in enumerate(chunks):
-            #     chunk_path = os.path.join(self.chunks_dir, f"chunk_{i}.wav")
-            #     chunk.export(chunk_path, format="wav")
+            lyrics = []
+            for i, chunk in enumerate(chunks):
+                chunk_path = os.path.join(self.chunks_dir, f"chunk_{i}.wav")
+                chunk.export(chunk_path, format="wav")
                 
-            #     text = self._transcribe_audio_chunk(chunk_path)
-            #     if text:
-            #         lyrics.append(text.capitalize())
+                text = self._transcribe_audio_chunk(chunk_path)
+                if text:
+                    lyrics.append(text.capitalize())
             
-            # # Clean up chunk files
-            # self._cleanup_chunks()
+            # Clean up chunk files
+            self._cleanup_chunks()
             
-            # return ". ".join(lyrics) + ("." if lyrics else "")
-            return "The two of us alone together. Something's just not right"
+            return ". ".join(lyrics) + ("." if lyrics else "")
+            # return "The two of us alone together. Something's just not right"
             
         except Exception as e:
             print(f"Error processing audio file: {e}")

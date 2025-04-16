@@ -6,13 +6,12 @@ from config import Config
 config = Config()
 
 def load_and_preprocess_data(filepath):
-    """Load and preprocess the dataset"""
     with open(filepath, 'rb') as f:
         data = pickle.load(f)
 
     df = pd.DataFrame(data, columns=['filename', 'lyrics', 'mfcc', 'genre', 'genre_idx'])
 
-    # Validate samples
+    # Validate samples (keep only checks for MFCC/text validity)
     valid_samples = []
     for idx, row in df.iterrows():
         try:
@@ -38,11 +37,6 @@ def load_and_preprocess_data(filepath):
     # Clean lyrics
     df['lyrics'] = df['lyrics'].fillna('').astype(str).str.strip()
     df['lyrics'] = df['lyrics'].str.replace(r'\s+', ' ', regex=True)
-
-    # Filter genres
-    genre_counts = df['genre_idx'].value_counts()
-    valid_genres = genre_counts[genre_counts >= 3].index
-    df = df[df['genre_idx'].isin(valid_genres)].copy()
 
     print(f"Loaded {len(df)} valid samples")
     return df
