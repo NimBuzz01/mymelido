@@ -15,18 +15,18 @@ interface ResultsDashboardProps {
 
 const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
   const topMatch = useMemo(() => {
-    return results.results?.[0] || null;
-  }, [results.results]);
+    return results.matches?.[0] || null;
+  }, [results.matches]);
 
-  if (!results.results?.length) {
+  if (!results.matches?.length) {
     return (
-      <Alert variant="destructive">
+      <Alert variant="default">
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>No matches found</AlertTitle>
+        <AlertTitle>All Clear</AlertTitle>
         <AlertDescription>
-          No similar tracks were found for "
-          {formatTrackName("out_No_One_Else_Comes_Close_Backstreet_Boys_0_2")}".
-          Try analyzing with different parameters.
+          No copyright issues were found for "
+          {formatTrackName(results.input_metadata.filename)}". The track is
+          clear.
         </AlertDescription>
       </Alert>
     );
@@ -42,7 +42,7 @@ const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
         </div>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <span className="font-medium">
-            {formatTrackName("out_No_One_Else_Comes_Close_Backstreet_Boys_0_2")}
+            {formatTrackName(results.input_metadata.filename)}
           </span>
         </div>
       </div>
@@ -63,10 +63,10 @@ const ResultsDashboard = ({ results }: ResultsDashboardProps) => {
           Analysis Details
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <MatchesTable matches={results.results} />
+          <MatchesTable matches={results.matches} />
           <TrackInfo
-            trackId={"out_No_One_Else_Comes_Close_Backstreet_Boys_0_2"}
-            lyrics={"The two of us alone together. Something's just not right"}
+            trackId={results.input_metadata.filename}
+            lyrics={results.input_metadata.lyrics_snippet}
           />
         </div>
       </section>

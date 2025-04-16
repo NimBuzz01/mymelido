@@ -1,27 +1,23 @@
 class Config:
-    # Audio configuration
+    # Audio Processing
     AUDIO_INPUT_SHAPE = 54656
-    TARGET_AUDIO_SHAPE = 55296
     SAMPLE_RATE = 22050
-    N_MFCC = 2048
+    N_MFCC = 16
     HOP_LENGTH = 512
-    N_FFT = 2048
-    MARGIN = 0.3
+    N_FFT = 16
+    MARGIN = 0.5
     
-    # Lyrics processing
+    # Model Config
     MAX_SEQUENCE_LENGTH = 64
-    SIMILARITY_THRESHOLD = 0.8
-
-    DATA_PATH = "data/LAG.pkl"
+    EMBEDDING_DIM = 128
+    SIMILARITY_THRESHOLD = 0.7
+    BERT_MODEL_NAME = 'bert-base-uncased'
     
-    # Model paths
-    MODEL_DIR = "models/"
-    AUDIO_MODEL_PATH = MODEL_DIR + "audio_model.keras"
-    LYRICS_MODEL_PATH = MODEL_DIR + "lyrics_model.keras"
-    EMBEDDING_MODEL_PATH = MODEL_DIR + "music_similarity_model.keras"
-    TOKENIZER_PATH = MODEL_DIR + "bert_tokenizer"
-    
-    # API settings
+    # File Uploads
     ALLOWED_EXTENSIONS = {'mp3', 'wav', 'ogg'}
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
-    UPLOAD_FOLDER = '/tmp'
+    
+    # Paths
+    MODEL_DIR = 'models'
+    TOKENIZER_DIR = 'models/bert_tokenizer'
+    DATA_DIR = 'data'
